@@ -1,8 +1,8 @@
-﻿using GeoJsonParser.GeoJsonGeometries;
-using GeoJsonParser.GeoJsonObjects;
+﻿using GeoJsonHelper.GeoJsonGeometries;
+using GeoJsonHelper.GeoJsonObjects;
 using Newtonsoft.Json.Linq;
 
-namespace GeoJsonParser.Factories
+namespace GeoJsonHelper.Factories
 {
     internal sealed class GeoJsonObjectFactory : IGeoJsonObjectFactory
     {

@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace GeoJsonParser.Apple.Properties
+namespace GeoJsonHelper.IMDF.Properties
 {
-    public sealed class AppleGeoJsonPropertyAddress : AppleGeoJsonProperty
+    public sealed class IMDFGeoJsonPropertyAddress : IMDFGeoJsonProperty
     {
         [MaybeNull] public string Address { get; set; }
         [MaybeNull] public string Unit { get; set; }

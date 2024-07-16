@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace GeoJsonParser.Apple.Properties
+namespace GeoJsonHelper.IMDF.Properties
 {
     public sealed class Door
     {

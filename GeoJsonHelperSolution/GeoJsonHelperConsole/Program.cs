@@ -1,4 +1,4 @@
-﻿using GeoJsonParser;
+﻿using GeoJsonHelper;
 
 string filePath = Path.GetFullPath("../passenger_100124- FOR SPIKE.geojson");//"C:\\Users\\padmaraj.palas\\Downloads\\passenger_100124- FOR SPIKE.geojson";
 

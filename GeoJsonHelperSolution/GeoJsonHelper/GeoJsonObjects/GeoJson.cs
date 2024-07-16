@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace GeoJsonParser.GeoJsonObjects
+namespace GeoJsonHelper.GeoJsonObjects
 {
     public abstract class GeoJson
     {

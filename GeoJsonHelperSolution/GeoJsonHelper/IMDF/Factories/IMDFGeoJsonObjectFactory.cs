@@ -1,17 +1,17 @@
 ﻿using System;
-using GeoJsonParser.Apple.GeoJsonFeatures;
-using GeoJsonParser.Apple.Properties;
-using GeoJsonParser.Factories;
-using GeoJsonParser.GeoJsonObjects;
+using GeoJsonHelper.IMDF.GeoJsonFeatures;
+using GeoJsonHelper.IMDF.Properties;
+using GeoJsonHelper.Factories;
+using GeoJsonHelper.GeoJsonObjects;
 using Newtonsoft.Json.Linq;
 
-namespace GeoJsonParser.Apple.Factories
+namespace GeoJsonHelper.IMDF.Factories
 {
-    internal sealed class AppleGeoJsonObjectFactory : IGeoJsonObjectFactory
+    internal sealed class IMDFGeoJsonObjectFactory : IGeoJsonObjectFactory
     {
         private readonly IGeoJsonObjectFactory _geoJsonObjectFactory;
 
-        public AppleGeoJsonObjectFactory(IGeoJsonObjectFactory geoJsonObjectFactory)
+        public IMDFGeoJsonObjectFactory(IGeoJsonObjectFactory geoJsonObjectFactory)
         {
             _geoJsonObjectFactory = geoJsonObjectFactory;
         }
@@ -43,62 +43,62 @@ namespace GeoJsonParser.Apple.Factories
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return new AppleGeoJsonFeature();
+                return new IMDFGeoJsonFeature();
             }
 
-            AppleGeoJsonFeature feature;
+            IMDFGeoJsonFeature feature;
             switch (featureType)
             {
                 case FeatureTypes.address:
-                    feature = new AppleGeoJsonFeature<AppleGeoJsonPropertyAddress>();
+                    feature = new IMDFGeoJsonFeature<IMDFGeoJsonPropertyAddress>();
                     break;
                 case FeatureTypes.amenity:
-                    feature = new AppleGeoJsonFeature<AppleGeoJsonPropertyAmenity>();
+                    feature = new IMDFGeoJsonFeature<IMDFGeoJsonPropertyAmenity>();
                     break;
                 case FeatureTypes.anchor:
-                    feature = new AppleGeoJsonFeature<AppleGeoJsonPropertyAnchor>();
+                    feature = new IMDFGeoJsonFeature<IMDFGeoJsonPropertyAnchor>();
                     break;
                 case FeatureTypes.building:
-                    feature = new AppleGeoJsonFeature<AppleGeoJsonPropertyBuilding>();
+                    feature = new IMDFGeoJsonFeature<IMDFGeoJsonPropertyBuilding>();
                     break;
                 case FeatureTypes.detail:
-                    feature = new AppleGeoJsonFeature<AppleGeoJsonPropertyDetail>();
+                    feature = new IMDFGeoJsonFeature<IMDFGeoJsonPropertyDetail>();
                     break;
                 case FeatureTypes.fixture:
-                    feature = new AppleGeoJsonFeature<AppleGeoJsonPropertyFixture>();
+                    feature = new IMDFGeoJsonFeature<IMDFGeoJsonPropertyFixture>();
                     break;
                 case FeatureTypes.footprint:
-                    feature = new AppleGeoJsonFeature<AppleGeoJsonPropertyFootPrint>();
+                    feature = new IMDFGeoJsonFeature<IMDFGeoJsonPropertyFootPrint>();
                     break;
                 case FeatureTypes.geofence:
-                    feature = new AppleGeoJsonFeature<AppleGeoJsonPropertyGeofence>();
+                    feature = new IMDFGeoJsonFeature<IMDFGeoJsonPropertyGeofence>();
                     break;
                 case FeatureTypes.kiosk:
-                    feature = new AppleGeoJsonFeature<AppleGeoJsonPropertyKiosk>();
+                    feature = new IMDFGeoJsonFeature<IMDFGeoJsonPropertyKiosk>();
                     break;
                 case FeatureTypes.level:
-                    feature = new AppleGeoJsonFeature<AppleGeoJsonPropertyLevel>();
+                    feature = new IMDFGeoJsonFeature<IMDFGeoJsonPropertyLevel>();
                     break;
                 case FeatureTypes.occupant:
-                    feature = new AppleGeoJsonFeature<AppleGeoJsonPropertyOccupant>();
+                    feature = new IMDFGeoJsonFeature<IMDFGeoJsonPropertyOccupant>();
                     break;
                 case FeatureTypes.opening:
-                    feature = new AppleGeoJsonFeature<AppleGeoJsonPropertyOpening>();
+                    feature = new IMDFGeoJsonFeature<IMDFGeoJsonPropertyOpening>();
                     break;
                 case FeatureTypes.relationship:
-                    feature = new AppleGeoJsonFeature<AppleGeoJsonPropertyRelationship>();
+                    feature = new IMDFGeoJsonFeature<IMDFGeoJsonPropertyRelationship>();
                     break;
                 case FeatureTypes.section:
-                    feature = new AppleGeoJsonFeature<AppleGeoJsonPropertySection>();
+                    feature = new IMDFGeoJsonFeature<IMDFGeoJsonPropertySection>();
                     break;
                 case FeatureTypes.unit:
-                    feature = new AppleGeoJsonFeature<AppleGeoJsonPropertyUnit>();
+                    feature = new IMDFGeoJsonFeature<IMDFGeoJsonPropertyUnit>();
                     break;
                 case FeatureTypes.venue:
-                    feature = new AppleGeoJsonFeature<AppleGeoJsonPropertyVenue>();
+                    feature = new IMDFGeoJsonFeature<IMDFGeoJsonPropertyVenue>();
                     break;
                 default:
-                    feature = new AppleGeoJsonFeature();
+                    feature = new IMDFGeoJsonFeature();
                     break;
             }
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GeoJsonParser.Apple.Properties
+namespace GeoJsonHelper.IMDF.Properties
 {
     public sealed class Label
     {

@@ -1,6 +1,6 @@
-﻿using GeoJsonParser.GeoJsonObjects;
+﻿using GeoJsonHelper.GeoJsonObjects;
 
-namespace GeoJsonParser.GeoJsonGeometries
+namespace GeoJsonHelper.GeoJsonGeometries
 {
     public class GeoJsonGeometry : GeoJson
     { }

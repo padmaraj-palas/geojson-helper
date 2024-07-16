@@ -1,12 +1,12 @@
 ﻿using System;
-using GeoJsonParser.Factories;
-using GeoJsonParser.GeoJsonObjects;
+using GeoJsonHelper.Factories;
+using GeoJsonHelper.GeoJsonObjects;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace GeoJsonParser.CustomConverters
+namespace GeoJsonHelper.CustomConverters
 {
-    public sealed class GeoJsonConverter : JsonConverter<GeoJson>
+    internal sealed class GeoJsonConverter : JsonConverter<GeoJson>
     {
         private readonly IGeoJsonObjectFactory _geoJsonObjectFactory;
         private readonly IGeoJsonService _geoJsonService;

@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace GeoJsonParser.GeoJsonGeometries
+namespace GeoJsonHelper.GeoJsonGeometries
 {
     public sealed class GeoJsonGeometryCollection : GeoJsonGeometry
     {

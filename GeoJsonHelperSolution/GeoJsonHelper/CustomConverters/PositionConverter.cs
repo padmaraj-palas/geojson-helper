@@ -1,10 +1,10 @@
 ﻿using System;
-using GeoJsonParser.GeoJsonGeometries;
+using GeoJsonHelper.GeoJsonGeometries;
 using Newtonsoft.Json;
 
-namespace GeoJsonParser.CustomConverters
+namespace GeoJsonHelper.CustomConverters
 {
-    public sealed class PositionConverter : JsonConverter<GeoJsonPosition>
+    internal sealed class PositionConverter : JsonConverter<GeoJsonPosition>
     {
         public override GeoJsonPosition? ReadJson(JsonReader reader, Type objectType, GeoJsonPosition? existingValue, bool hasExistingValue, JsonSerializer serializer)
         {

@@ -1,9 +1,9 @@
-﻿using GeoJsonParser.GeoJsonObjects;
+﻿using GeoJsonHelper.GeoJsonObjects;
 using Newtonsoft.Json.Linq;
 
-namespace GeoJsonParser.Factories
+namespace GeoJsonHelper.Factories
 {
-    public interface IGeoJsonObjectFactory
+    internal interface IGeoJsonObjectFactory
     {
         GeoJson? CreateGeoJson(JObject jObject, GeoJsonObjectTypes objectType);
     }

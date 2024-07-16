@@ -1,30 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using GeoJsonParser.Apple.GeoJsonFeatures;
-using GeoJsonParser.Apple.Properties;
-using GeoJsonParser.GeoJsonObjects;
+using GeoJsonHelper.IMDF.GeoJsonFeatures;
+using GeoJsonHelper.IMDF.Properties;
+using GeoJsonHelper.GeoJsonObjects;
 
-namespace GeoJsonParser
+namespace GeoJsonHelper
 {
     public interface IGeoJsonService
     {
-        IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyAddress>> Addresses { get; }
-        IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyAmenity>> Amenities { get; }
-        IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyAnchor>> Anchors { get; }
-        IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyBuilding>> Buildings { get; }
-        IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyDetail>> Details { get; }
-        IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyFixture>> Fixtures { get; }
-        IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyFootPrint>> Footprints { get; }
-        IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyGeofence>> Geofences { get; }
+        IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyAddress>> Addresses { get; }
+        IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyAmenity>> Amenities { get; }
+        IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyAnchor>> Anchors { get; }
+        IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyBuilding>> Buildings { get; }
+        IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyDetail>> Details { get; }
+        IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyFixture>> Fixtures { get; }
+        IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyFootPrint>> Footprints { get; }
+        IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyGeofence>> Geofences { get; }
         GeoJson GeoJson { get; }
-        IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyKiosk>> Kiosks { get; }
-        IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyLevel>> Levels { get; }
-        IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyOccupant>> Occupants { get; }
-        IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyOpening>> Openings { get; }
-        IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyRelationship>> Relationships { get; }
-        IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertySection>> Sections { get; }
-        IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyUnit>> Units { get; }
-        IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyVenue>> Venues { get; }
+        IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyKiosk>> Kiosks { get; }
+        IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyLevel>> Levels { get; }
+        IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyOccupant>> Occupants { get; }
+        IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyOpening>> Openings { get; }
+        IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyRelationship>> Relationships { get; }
+        IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertySection>> Sections { get; }
+        IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyUnit>> Units { get; }
+        IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyVenue>> Venues { get; }
 
         internal void AddFeature(GeoJsonFeature feature);
         GeoJson Load(string filepath);

@@ -1,14 +1,14 @@
 ﻿using System.IO;
-using GeoJsonParser.Apple.CustomConverters;
-using GeoJsonParser.Apple.Factories;
-using GeoJsonParser.CustomConverters;
-using GeoJsonParser.Factories;
+using GeoJsonHelper.CustomConverters;
+using GeoJsonHelper.IMDF.CustomConverters;
+using GeoJsonHelper.IMDF.Factories;
+using GeoJsonHelper.Factories;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace GeoJsonParser
+namespace GeoJsonHelper
 {
-    public static class GeoJsonParser
+    internal static class GeoJsonParser
     {
         private static readonly JsonSerializer _serializer;
 
@@ -25,22 +25,11 @@ namespace GeoJsonParser
         public static void Init(IGeoJsonService geoJsonService)
         {
             IGeoJsonObjectFactory geoJsonFactory = new GeoJsonObjectFactory();
-            geoJsonFactory = new AppleGeoJsonObjectFactory(geoJsonFactory);
+            geoJsonFactory = new IMDFGeoJsonObjectFactory(geoJsonFactory);
             _serializer.Converters.Add(new GeoJsonConverter(geoJsonFactory, geoJsonService));
             _serializer.Converters.Add(new LabelConverter());
             _serializer.Converters.Add(new PositionConverter());
         }
-
-        //public static T Serialize<T>(string json)
-        //{
-        //    using (TextReader textReader = new StringReader(json))
-        //    {
-        //        using (JsonReader jsonReader = new JsonTextReader(textReader))
-        //        {
-        //            return _serializer.Deserialize<T>(jsonReader);
-        //        }
-        //    }
-        //}
 
         public static T Serialize<T>(string filePath)
         {

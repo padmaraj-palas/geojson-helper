@@ -1,4 +1,4 @@
-﻿namespace GeoJsonParser
+﻿namespace GeoJsonHelper
 {
     public enum GeoJsonObjectTypes
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using GeoJsonParser.Apple.Properties;
+using GeoJsonHelper.IMDF.Properties;
 using Newtonsoft.Json;
 
-namespace GeoJsonParser.Apple.CustomConverters
+namespace GeoJsonHelper.IMDF.CustomConverters
 {
     internal sealed class LabelConverter : JsonConverter<Label>
     {

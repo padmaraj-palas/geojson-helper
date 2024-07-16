@@ -1,148 +1,148 @@
 ﻿using System;
 using System.Collections.Generic;
-using GeoJsonParser.Apple;
-using GeoJsonParser.Apple.GeoJsonFeatures;
-using GeoJsonParser.Apple.Properties;
-using GeoJsonParser.GeoJsonObjects;
+using GeoJsonHelper.IMDF;
+using GeoJsonHelper.IMDF.GeoJsonFeatures;
+using GeoJsonHelper.IMDF.Properties;
+using GeoJsonHelper.GeoJsonObjects;
 
-namespace GeoJsonParser
+namespace GeoJsonHelper
 {
     public sealed class GeojsonService : IGeoJsonService
     {
-        private readonly Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyAddress>> _addresses;
-        private readonly Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyAmenity>> _amenities;
-        private readonly Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyAnchor>> _anchors;
-        private readonly Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyBuilding>> _buildings;
-        private readonly Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyDetail>> _details;
-        private readonly Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyFixture>> _fixtures;
-        private readonly Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyFootPrint>> _footprints;
-        private readonly Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyGeofence>> _geofences;
-        private readonly Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyKiosk>> _kiosks;
-        private readonly Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyLevel>> _levels;
-        private readonly Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyOccupant>> _occupants;
-        private readonly Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyOpening>> _openings;
-        private readonly Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyRelationship>> _relationships;
-        private readonly Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertySection>> _sections;
-        private readonly Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyUnit>> _units;
-        private readonly Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyVenue>> _venues;
+        private readonly Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyAddress>> _addresses;
+        private readonly Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyAmenity>> _amenities;
+        private readonly Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyAnchor>> _anchors;
+        private readonly Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyBuilding>> _buildings;
+        private readonly Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyDetail>> _details;
+        private readonly Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyFixture>> _fixtures;
+        private readonly Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyFootPrint>> _footprints;
+        private readonly Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyGeofence>> _geofences;
+        private readonly Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyKiosk>> _kiosks;
+        private readonly Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyLevel>> _levels;
+        private readonly Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyOccupant>> _occupants;
+        private readonly Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyOpening>> _openings;
+        private readonly Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyRelationship>> _relationships;
+        private readonly Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertySection>> _sections;
+        private readonly Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyUnit>> _units;
+        private readonly Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyVenue>> _venues;
 
         private GeoJson _geoJson;
 
         public GeojsonService()
         {
-            _addresses = new Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyAddress>>();
-            _amenities = new Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyAmenity>>();
-            _anchors = new Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyAnchor>>();
-            _buildings = new Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyBuilding>>();
-            _details = new Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyDetail>>();
-            _fixtures = new Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyFixture>>();
-            _footprints = new Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyFootPrint>>();
-            _geofences = new Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyGeofence>>();
-            _kiosks = new Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyKiosk>>();
-            _levels = new Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyLevel>>();
-            _occupants = new Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyOccupant>>();
-            _openings = new Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyOpening>>();
-            _relationships = new Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyRelationship>>();
-            _sections = new Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertySection>>();
-            _units = new Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyUnit>>();
-            _venues = new Dictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyVenue>>();
+            _addresses = new Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyAddress>>();
+            _amenities = new Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyAmenity>>();
+            _anchors = new Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyAnchor>>();
+            _buildings = new Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyBuilding>>();
+            _details = new Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyDetail>>();
+            _fixtures = new Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyFixture>>();
+            _footprints = new Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyFootPrint>>();
+            _geofences = new Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyGeofence>>();
+            _kiosks = new Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyKiosk>>();
+            _levels = new Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyLevel>>();
+            _occupants = new Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyOccupant>>();
+            _openings = new Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyOpening>>();
+            _relationships = new Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyRelationship>>();
+            _sections = new Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertySection>>();
+            _units = new Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyUnit>>();
+            _venues = new Dictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyVenue>>();
 
             GeoJsonParser.Init(this);
         }
 
-        public IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyAddress>> Addresses => _addresses;
+        public IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyAddress>> Addresses => _addresses;
 
-        public IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyAmenity>> Amenities => _amenities;
+        public IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyAmenity>> Amenities => _amenities;
 
-        public IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyAnchor>> Anchors => _anchors;
+        public IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyAnchor>> Anchors => _anchors;
 
-        public IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyBuilding>> Buildings => _buildings;
+        public IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyBuilding>> Buildings => _buildings;
 
-        public IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyDetail>> Details => _details;
+        public IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyDetail>> Details => _details;
 
-        public IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyFixture>> Fixtures => _fixtures;
+        public IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyFixture>> Fixtures => _fixtures;
 
-        public IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyFootPrint>> Footprints => _footprints;
+        public IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyFootPrint>> Footprints => _footprints;
 
-        public IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyGeofence>> Geofences => _geofences;
+        public IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyGeofence>> Geofences => _geofences;
         
         public GeoJson GeoJson => _geoJson;
 
-        public IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyKiosk>> Kiosks => _kiosks;
+        public IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyKiosk>> Kiosks => _kiosks;
 
-        public IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyLevel>> Levels => _levels;
+        public IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyLevel>> Levels => _levels;
 
-        public IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyOccupant>> Occupants => _occupants;
+        public IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyOccupant>> Occupants => _occupants;
 
-        public IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyOpening>> Openings => _openings;
+        public IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyOpening>> Openings => _openings;
 
-        public IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyRelationship>> Relationships => _relationships;
+        public IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyRelationship>> Relationships => _relationships;
 
-        public IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertySection>> Sections => _sections;
+        public IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertySection>> Sections => _sections;
 
-        public IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyUnit>> Units => _units;
+        public IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyUnit>> Units => _units;
 
-        public IReadOnlyDictionary<Guid, AppleGeoJsonFeature<AppleGeoJsonPropertyVenue>> Venues => _venues;
+        public IReadOnlyDictionary<Guid, IMDFGeoJsonFeature<IMDFGeoJsonPropertyVenue>> Venues => _venues;
 
         void IGeoJsonService.AddFeature(GeoJsonFeature feature)
         {
-            if (feature == null || !(feature is AppleGeoJsonFeature) || feature.Id == null)
+            if (feature == null || !(feature is IMDFGeoJsonFeature) || feature.Id == null)
             {
                 return;
             }
 
-            var appleGeoJsonFeature = feature as AppleGeoJsonFeature;
+            var appleGeoJsonFeature = feature as IMDFGeoJsonFeature;
             var id = feature.Id.Value;
 
             switch (appleGeoJsonFeature.Feature_type)
             {
                 case FeatureTypes.address:
-                    _addresses[id] = appleGeoJsonFeature as AppleGeoJsonFeature<AppleGeoJsonPropertyAddress>;
+                    _addresses[id] = appleGeoJsonFeature as IMDFGeoJsonFeature<IMDFGeoJsonPropertyAddress>;
                     break;
                 case FeatureTypes.amenity:
-                    _amenities[id] = appleGeoJsonFeature as AppleGeoJsonFeature<AppleGeoJsonPropertyAmenity>;
+                    _amenities[id] = appleGeoJsonFeature as IMDFGeoJsonFeature<IMDFGeoJsonPropertyAmenity>;
                     break;
                 case FeatureTypes.anchor:
-                    _anchors[id] = appleGeoJsonFeature as AppleGeoJsonFeature<AppleGeoJsonPropertyAnchor>;
+                    _anchors[id] = appleGeoJsonFeature as IMDFGeoJsonFeature<IMDFGeoJsonPropertyAnchor>;
                     break;
                 case FeatureTypes.building:
-                    _buildings[id] = appleGeoJsonFeature as AppleGeoJsonFeature<AppleGeoJsonPropertyBuilding>;
+                    _buildings[id] = appleGeoJsonFeature as IMDFGeoJsonFeature<IMDFGeoJsonPropertyBuilding>;
                     break;
                 case FeatureTypes.detail:
-                    _details[id] = appleGeoJsonFeature as AppleGeoJsonFeature<AppleGeoJsonPropertyDetail>;
+                    _details[id] = appleGeoJsonFeature as IMDFGeoJsonFeature<IMDFGeoJsonPropertyDetail>;
                     break;
                 case FeatureTypes.fixture:
-                    _fixtures[id] = appleGeoJsonFeature as AppleGeoJsonFeature<AppleGeoJsonPropertyFixture>;
+                    _fixtures[id] = appleGeoJsonFeature as IMDFGeoJsonFeature<IMDFGeoJsonPropertyFixture>;
                     break;
                 case FeatureTypes.footprint:
-                    _footprints[id] = appleGeoJsonFeature as AppleGeoJsonFeature<AppleGeoJsonPropertyFootPrint>;
+                    _footprints[id] = appleGeoJsonFeature as IMDFGeoJsonFeature<IMDFGeoJsonPropertyFootPrint>;
                     break;
                 case FeatureTypes.geofence:
-                    _geofences[id] = appleGeoJsonFeature as AppleGeoJsonFeature<AppleGeoJsonPropertyGeofence>;
+                    _geofences[id] = appleGeoJsonFeature as IMDFGeoJsonFeature<IMDFGeoJsonPropertyGeofence>;
                     break;
                 case FeatureTypes.kiosk:
-                    _kiosks[id] = appleGeoJsonFeature as AppleGeoJsonFeature<AppleGeoJsonPropertyKiosk>;
+                    _kiosks[id] = appleGeoJsonFeature as IMDFGeoJsonFeature<IMDFGeoJsonPropertyKiosk>;
                     break;
                 case FeatureTypes.level:
-                    _levels[id] = appleGeoJsonFeature as AppleGeoJsonFeature<AppleGeoJsonPropertyLevel>;
+                    _levels[id] = appleGeoJsonFeature as IMDFGeoJsonFeature<IMDFGeoJsonPropertyLevel>;
                     break;
                 case FeatureTypes.occupant:
-                    _occupants[id] = appleGeoJsonFeature as AppleGeoJsonFeature<AppleGeoJsonPropertyOccupant>;
+                    _occupants[id] = appleGeoJsonFeature as IMDFGeoJsonFeature<IMDFGeoJsonPropertyOccupant>;
                     break;
                 case FeatureTypes.opening:
-                    _openings[id] = appleGeoJsonFeature as AppleGeoJsonFeature<AppleGeoJsonPropertyOpening>;
+                    _openings[id] = appleGeoJsonFeature as IMDFGeoJsonFeature<IMDFGeoJsonPropertyOpening>;
                     break;
                 case FeatureTypes.relationship:
-                    _relationships[id] = appleGeoJsonFeature as AppleGeoJsonFeature<AppleGeoJsonPropertyRelationship>;
+                    _relationships[id] = appleGeoJsonFeature as IMDFGeoJsonFeature<IMDFGeoJsonPropertyRelationship>;
                     break;
                 case FeatureTypes.section:
-                    _sections[id] = appleGeoJsonFeature as AppleGeoJsonFeature<AppleGeoJsonPropertySection>;
+                    _sections[id] = appleGeoJsonFeature as IMDFGeoJsonFeature<IMDFGeoJsonPropertySection>;
                     break;
                 case FeatureTypes.unit:
-                    _units[id] = appleGeoJsonFeature as AppleGeoJsonFeature<AppleGeoJsonPropertyUnit>;
+                    _units[id] = appleGeoJsonFeature as IMDFGeoJsonFeature<IMDFGeoJsonPropertyUnit>;
                     break;
                 case FeatureTypes.venue:
-                    _venues[id] = appleGeoJsonFeature as AppleGeoJsonFeature<AppleGeoJsonPropertyVenue>;
+                    _venues[id] = appleGeoJsonFeature as IMDFGeoJsonFeature<IMDFGeoJsonPropertyVenue>;
                     break;
             }
         }

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using GeoJsonParser.GeoJsonGeometries;
+using GeoJsonHelper.GeoJsonGeometries;
 
-namespace GeoJsonParser.GeoJsonObjects
+namespace GeoJsonHelper.GeoJsonObjects
 {
     public class GeoJsonFeature : GeoJson
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace GeoJsonParser.Apple.Properties
+namespace GeoJsonHelper.IMDF.Properties
 {
-    public sealed class AppleGeoJsonPropertyFootPrint : AppleGeoJsonProperty
+    public sealed class IMDFGeoJsonPropertyFootPrint : IMDFGeoJsonProperty
     {
         [MaybeNull] public string Category { get; set; }
         [MaybeNull] public Label Name { get; set; }

@@ -1,10 +1,10 @@
-﻿using GeoJsonParser.GeoJsonGeometries;
+﻿using GeoJsonHelper.GeoJsonGeometries;
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace GeoJsonParser.Apple.Properties
+namespace GeoJsonHelper.IMDF.Properties
 {
-    public sealed class AppleGeoJsonPropertyBuilding : AppleGeoJsonProperty
+    public sealed class IMDFGeoJsonPropertyBuilding : IMDFGeoJsonProperty
     {
         [MaybeNull] public Label Name { get; set; }
         [MaybeNull] public Label Alt_name { get; set; }

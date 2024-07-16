@@ -1,4 +1,4 @@
-﻿namespace GeoJsonParser.Apple
+﻿namespace GeoJsonHelper.IMDF
 {
     public enum FeatureTypes
     {

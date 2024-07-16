@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace GeoJsonParser.Apple.Properties
+namespace GeoJsonHelper.IMDF.Properties
 {
-    public sealed class AppleGeoJsonPropertyRelationship : AppleGeoJsonProperty
+    public sealed class IMDFGeoJsonPropertyRelationship : IMDFGeoJsonProperty
     {
         [MaybeNull] public string Category { get; set; }
         [MaybeNull] public string Direction { get; set; }
