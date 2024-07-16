@@ -1,0 +1,63 @@
+﻿using System;
+using GeoJsonParser.Factories;
+using GeoJsonParser.GeoJsonObjects;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
+namespace GeoJsonParser.CustomConverters
+{
+    public sealed class GeoJsonConverter : JsonConverter<GeoJson>
+    {
+        private readonly IGeoJsonObjectFactory _geoJsonObjectFactory;
+        private readonly IGeoJsonService _geoJsonService;
+
+        public GeoJsonConverter(IGeoJsonObjectFactory geoJsonObjectFactory, IGeoJsonService geoJsonService)
+        {
+            _geoJsonObjectFactory = geoJsonObjectFactory;
+            _geoJsonService = geoJsonService;
+        }
+
+        public override bool CanWrite => false;
+
+        public override GeoJson? ReadJson(JsonReader reader, Type objectType, GeoJson? existingValue, bool hasExistingValue, JsonSerializer serializer)
+        {
+            try
+            {
+                JObject jObject = JObject.Load(reader);
+                JToken geoJsonType;
+                if (!jObject.TryGetValue("type", out geoJsonType))
+                {
+                    throw new ArgumentException("GeoJsonConverter: GeoJson type not specified");
+                }
+
+                var type = Enum.Parse<GeoJsonObjectTypes>(geoJsonType.ToString(), true);
+                var value = Parse(jObject, type, serializer);
+                return value;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            return null;
+        }
+
+        public override void WriteJson(JsonWriter writer, GeoJson? value, JsonSerializer serializer)
+        {
+            throw new NotImplementedException();
+        }
+
+        private GeoJson? Parse(JObject jObject, GeoJsonObjectTypes type, JsonSerializer serializer)
+        {
+            GeoJson? geoJson = _geoJsonObjectFactory.CreateGeoJson(jObject, type);
+
+            if (geoJson != null)
+                serializer.Populate(jObject.CreateReader(), geoJson);
+
+            if (geoJson is GeoJsonFeature feature)
+                _geoJsonService.AddFeature(feature);
+
+            return geoJson;
+        }
+    }
+}
