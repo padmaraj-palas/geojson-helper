@@ -10,7 +10,6 @@ namespace GeoJsonHelper.CustomConverters
         {
             try
             {
-                var path = reader.Path;
                 return serializer.Deserialize<decimal[]>(reader);
             }
             catch (Exception ex)
