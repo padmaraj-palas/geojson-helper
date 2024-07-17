@@ -1,4 +1,6 @@
 ﻿using GeoJsonHelper;
+using System;
+using System.IO;
 
 string filePath = Path.GetFullPath("./passenger_100124- FOR SPIKE.geojson");
 
