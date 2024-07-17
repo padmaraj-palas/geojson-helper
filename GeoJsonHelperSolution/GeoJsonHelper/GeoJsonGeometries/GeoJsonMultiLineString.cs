@@ -1,9 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace GeoJsonHelper.GeoJsonGeometries
+﻿namespace GeoJsonHelper.GeoJsonGeometries
 {
     public sealed class GeoJsonMultiLineString : GeoJsonGeometry
     {
-        [MaybeNull] public GeoJsonLineString[] Coordinates { get; set; }
+        public GeoJsonLineString[] Coordinates { get; set; }
     }
 }

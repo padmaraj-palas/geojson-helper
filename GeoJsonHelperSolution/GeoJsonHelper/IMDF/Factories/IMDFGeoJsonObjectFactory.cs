@@ -16,7 +16,7 @@ namespace GeoJsonHelper.IMDF.Factories
             _geoJsonObjectFactory = geoJsonObjectFactory;
         }
 
-        public GeoJson? CreateGeoJson(JObject jObject, GeoJsonObjectTypes objectType)
+        public GeoJson CreateGeoJson(JObject jObject, GeoJsonObjectTypes objectType)
         {
             switch (objectType)
             {
@@ -27,7 +27,7 @@ namespace GeoJsonHelper.IMDF.Factories
             }
         }
 
-        public GeoJson? CreateGeoJsonWithProperty(JObject jObject)
+        public GeoJson CreateGeoJsonWithProperty(JObject jObject)
         {
             FeatureTypes featureType;
             try

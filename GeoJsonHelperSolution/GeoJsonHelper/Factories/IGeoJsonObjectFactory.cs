@@ -5,6 +5,6 @@ namespace GeoJsonHelper.Factories
 {
     internal interface IGeoJsonObjectFactory
     {
-        GeoJson? CreateGeoJson(JObject jObject, GeoJsonObjectTypes objectType);
+        GeoJson CreateGeoJson(JObject jObject, GeoJsonObjectTypes objectType);
     }
 }

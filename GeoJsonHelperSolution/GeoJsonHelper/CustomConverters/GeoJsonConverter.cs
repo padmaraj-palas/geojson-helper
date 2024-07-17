@@ -19,7 +19,7 @@ namespace GeoJsonHelper.CustomConverters
 
         public override bool CanWrite => false;
 
-        public override GeoJson? ReadJson(JsonReader reader, Type objectType, GeoJson? existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override GeoJson ReadJson(JsonReader reader, Type objectType, GeoJson existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             try
             {
@@ -42,14 +42,14 @@ namespace GeoJsonHelper.CustomConverters
             return null;
         }
 
-        public override void WriteJson(JsonWriter writer, GeoJson? value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, GeoJson value, JsonSerializer serializer)
         {
             throw new NotImplementedException();
         }
 
-        private GeoJson? Parse(JObject jObject, GeoJsonObjectTypes type, JsonSerializer serializer)
+        private GeoJson Parse(JObject jObject, GeoJsonObjectTypes type, JsonSerializer serializer)
         {
-            GeoJson? geoJson = _geoJsonObjectFactory.CreateGeoJson(jObject, type);
+            GeoJson geoJson = _geoJsonObjectFactory.CreateGeoJson(jObject, type);
 
             if (geoJson != null)
                 serializer.Populate(jObject.CreateReader(), geoJson);

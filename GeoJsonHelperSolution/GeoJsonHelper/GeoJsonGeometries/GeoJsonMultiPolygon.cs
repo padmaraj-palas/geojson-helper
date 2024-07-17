@@ -1,9 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace GeoJsonHelper.GeoJsonGeometries
+﻿namespace GeoJsonHelper.GeoJsonGeometries
 {
     public sealed class GeoJsonMultiPolygon : GeoJsonGeometry
     {
-        [MaybeNull] public GeoJsonPolygon[] Coordinates { get; set; }
+        public GeoJsonPolygon[] Coordinates { get; set; }
     }
 }

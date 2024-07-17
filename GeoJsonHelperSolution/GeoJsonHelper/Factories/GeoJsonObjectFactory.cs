@@ -6,9 +6,9 @@ namespace GeoJsonHelper.Factories
 {
     internal sealed class GeoJsonObjectFactory : IGeoJsonObjectFactory
     {
-        public GeoJson? CreateGeoJson(JObject jObject, GeoJsonObjectTypes objectType)
+        public GeoJson CreateGeoJson(JObject jObject, GeoJsonObjectTypes objectType)
         {
-            GeoJson? geoJson;
+            GeoJson geoJson;
             switch (objectType)
             {
                 case GeoJsonObjectTypes.Feature:

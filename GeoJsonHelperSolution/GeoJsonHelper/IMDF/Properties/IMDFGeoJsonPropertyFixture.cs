@@ -1,16 +1,15 @@
 ﻿using GeoJsonHelper.GeoJsonGeometries;
 using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace GeoJsonHelper.IMDF.Properties
 {
     public sealed class IMDFGeoJsonPropertyFixture : IMDFGeoJsonProperty
     {
-        [MaybeNull] public string Category { get; set; }
-        [MaybeNull] public Label Name { get; set; }
-        [MaybeNull] public Label Alt_Name { get; set; }
-        [MaybeNull] public Guid? Anchor_id { get; set; }
-        [MaybeNull] public Guid? Level_id { get; set; }
-        [MaybeNull] public GeoJsonPoint Display_point { get; set; }
+        public string Category { get; set; }
+        public Label Name { get; set; }
+        public Label Alt_Name { get; set; }
+        public Guid? Anchor_id { get; set; }
+        public Guid? Level_id { get; set; }
+        public GeoJsonPoint Display_point { get; set; }
     }
 }

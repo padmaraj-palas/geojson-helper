@@ -1,5 +1,6 @@
 ﻿using GeoJsonHelper.GeoJsonObjects;
-using System.Diagnostics.CodeAnalysis;
+using GeoJsonHelper.IMDF.Properties;
+
 
 namespace GeoJsonHelper.IMDF.GeoJsonFeatures
 {
@@ -9,7 +10,8 @@ namespace GeoJsonHelper.IMDF.GeoJsonFeatures
     }
 
     public sealed class IMDFGeoJsonFeature<T> : IMDFGeoJsonFeature
+        where T : IMDFGeoJsonProperty
     {
-        [MaybeNull] public T Properties { get; set; }
+        public T Properties { get; set; }
     }
 }

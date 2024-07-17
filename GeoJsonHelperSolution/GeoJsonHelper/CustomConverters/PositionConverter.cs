@@ -6,7 +6,7 @@ namespace GeoJsonHelper.CustomConverters
 {
     internal sealed class PositionConverter : JsonConverter<GeoJsonPosition>
     {
-        public override GeoJsonPosition? ReadJson(JsonReader reader, Type objectType, GeoJsonPosition? existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override GeoJsonPosition ReadJson(JsonReader reader, Type objectType, GeoJsonPosition existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             try
             {
@@ -20,7 +20,7 @@ namespace GeoJsonHelper.CustomConverters
             return null;
         }
 
-        public override void WriteJson(JsonWriter writer, GeoJsonPosition? value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, GeoJsonPosition value, JsonSerializer serializer)
         {
             try
             {

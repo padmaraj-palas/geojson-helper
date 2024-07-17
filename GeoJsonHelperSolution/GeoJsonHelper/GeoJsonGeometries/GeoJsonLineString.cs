@@ -1,10 +1,8 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace GeoJsonHelper.GeoJsonGeometries
+﻿namespace GeoJsonHelper.GeoJsonGeometries
 {
     public sealed class GeoJsonLineString : GeoJsonGeometry
     {
-        [MaybeNull] public GeoJsonPosition[] Coordinates { get; set; }
+        public GeoJsonPosition[] Coordinates { get; set; }
 
         public static implicit operator GeoJsonLineString(GeoJsonPosition[] positions)
         {

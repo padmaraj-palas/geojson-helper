@@ -1,10 +1,8 @@
-using System.Diagnostics.CodeAnalysis;
-
 namespace GeoJsonHelper.GeoJsonGeometries
 {
     public sealed class GeoJsonLineRing
     {
-        [MaybeNull] public GeoJsonLineString LineString { get; set; }
+        public GeoJsonLineString LineString { get; set; }
 
         public override string ToString()
         {
