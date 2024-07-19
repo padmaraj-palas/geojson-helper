@@ -4,6 +4,7 @@ using GeoJsonHelper.IMDF;
 using GeoJsonHelper.IMDF.GeoJsonFeatures;
 using GeoJsonHelper.IMDF.Properties;
 using GeoJsonHelper.GeoJsonObjects;
+using System.Threading.Tasks;
 
 namespace GeoJsonHelper
 {
@@ -150,6 +151,15 @@ namespace GeoJsonHelper
         public GeoJson Load(string filepath)
         {
             return _geoJson = GeoJsonParser.Serialize<GeoJson>(filepath);
+        }
+
+        public Task LoadAsync(string filepath, Action<GeoJson> onComplete)
+        {
+            return Task.Run(() =>
+            {
+                var geoJson = Load(filepath);
+                onComplete(geoJson);
+            });
         }
     }
 }

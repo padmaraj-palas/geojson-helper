@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using GeoJsonHelper.IMDF.GeoJsonFeatures;
 using GeoJsonHelper.IMDF.Properties;
 using GeoJsonHelper.GeoJsonObjects;
+using System.Threading.Tasks;
 
 namespace GeoJsonHelper
 {
@@ -28,5 +29,6 @@ namespace GeoJsonHelper
 
         internal void AddFeature(GeoJsonFeature feature);
         GeoJson Load(string filepath);
+        Task LoadAsync(string filepath, Action<GeoJson> onComplete);
     }
 }
