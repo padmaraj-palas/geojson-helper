@@ -150,7 +150,7 @@ namespace GeoJsonHelper
 
         public GeoJson Load(string filepath)
         {
-            return _geoJson = GeoJsonParser.Serialize<GeoJson>(filepath);
+            return _geoJson = GeoJsonParser.Deserialize<GeoJson>(filepath);
         }
 
         public Task LoadAsync(string filepath, Action<GeoJson> onComplete)

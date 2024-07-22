@@ -32,7 +32,7 @@ namespace GeoJsonHelper
             _serializer.Converters.Add(new PositionConverter());
         }
 
-        public static T Serialize<T>(string filePath)
+        public static T Deserialize<T>(string filePath)
         {
             if (!File.Exists(filePath))
             {

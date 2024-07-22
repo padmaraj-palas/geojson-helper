@@ -7,6 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeoJsonHelper", "GeoJsonHel
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeoJsonHelperConsole", "GeoJsonHelperConsole\GeoJsonHelperConsole.csproj", "{7DF9825C-7179-4D03-9866-2FC7C404CCCC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoPositioning", "GeoCoordinateHelper\GeoPositioning.csproj", "{1C4EE06B-1DB2-4F4F-9204-5F717A1869CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSVHelper", "CSVHelper\CSVHelper.csproj", "{EA7C6554-0EE9-40C3-A07D-F55A4AA4B99D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VectorMath", "VectorMath\VectorMath.csproj", "{35ACC83F-B01B-490A-B737-713FBF051AC4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,8 +27,23 @@ Global
 		{7DF9825C-7179-4D03-9866-2FC7C404CCCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DF9825C-7179-4D03-9866-2FC7C404CCCC}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{7DF9825C-7179-4D03-9866-2FC7C404CCCC}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{1C4EE06B-1DB2-4F4F-9204-5F717A1869CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C4EE06B-1DB2-4F4F-9204-5F717A1869CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C4EE06B-1DB2-4F4F-9204-5F717A1869CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C4EE06B-1DB2-4F4F-9204-5F717A1869CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA7C6554-0EE9-40C3-A07D-F55A4AA4B99D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA7C6554-0EE9-40C3-A07D-F55A4AA4B99D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA7C6554-0EE9-40C3-A07D-F55A4AA4B99D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA7C6554-0EE9-40C3-A07D-F55A4AA4B99D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35ACC83F-B01B-490A-B737-713FBF051AC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35ACC83F-B01B-490A-B737-713FBF051AC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35ACC83F-B01B-490A-B737-713FBF051AC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35ACC83F-B01B-490A-B737-713FBF051AC4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3BD8BD2B-FC46-4999-BD80-05AABEFCEC05}
 	EndGlobalSection
 EndGlobal
