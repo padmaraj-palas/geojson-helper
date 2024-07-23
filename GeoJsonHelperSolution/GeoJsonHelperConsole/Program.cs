@@ -107,7 +107,7 @@ IList<(Vector2[] vertices, PoiData poi, string groupName)> MapGeoJsonAndPoiTries
         var vertices = feature.GetPositionsFromFeature(origin);
         var clonedVertices = new Vector2[vertices.Length - 1];
         Array.Copy(vertices, clonedVertices, clonedVertices.Length);
-        var triangles = EarClippingTriangulator.GetBaseTries(clonedVertices);
+        var triangles = EarClippingTriangulator.GetTriangles(clonedVertices);
 
         var triList = new List<Vector2[]>();
         for (int i = 0; i < triangles.Length; i += 3)

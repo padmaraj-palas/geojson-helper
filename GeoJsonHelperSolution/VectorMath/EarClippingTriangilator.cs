@@ -5,49 +5,15 @@ namespace VectorMath
 {
     public static class EarClippingTriangulator
     {
-        public static int[] GetBaseTries(Vector2[] vertices)
-        {
-            int count = vertices.Length;
-
-            List<int> indexes = GetIndexes(count);
-
-            List<int> tries = new List<int>((count - 2) * 6 + count * 6);
-
-            CalculateTriangle(vertices, indexes, tries);
-            return tries.ToArray();
-        }
-
         public static int[] GetTriangles(Vector2[] vertices)
         {
             int count = vertices.Length;
 
             List<int> indexes = GetIndexes(count);
 
-            List<int> tries = new List<int>((count - 2) * 6 + count * 6);
+            List<int> tries = new List<int>();
 
             CalculateTriangle(vertices, indexes, tries);
-
-            int baseTriCount = (count - 2) * 3;
-
-            // Middle loop Faces
-            for (int i = 1, t = baseTriCount; i < count * 2; i += 2, t += 6)
-            {
-                tries.Add(count + i);
-                tries.Add(3 * count + i);
-                tries.Add(count + (i + 1) % (count * 2));
-                tries.Add(count + (i + 1) % (count * 2));
-                tries.Add(3 * count + i);
-                tries.Add(3 * count + (i + 1) % (count * 2));
-            }
-
-            int start = count * 5;
-            for (int i = 0; i < baseTriCount; i += 3)
-            {
-                tries.Add(tries[i] + start);
-                tries.Add(tries[i + 2] + start);
-                tries.Add(tries[i + 1] + start);
-            }
-
             return tries.ToArray();
         }
 
