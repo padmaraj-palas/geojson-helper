@@ -14,6 +14,7 @@ namespace VectorMath
         }
 
         public readonly double Magnitude => Math.Sqrt(SqrMagnitude);
+        public readonly Vector2 Normalized => Magnitude > 0 ? this / Magnitude : Zero;
         public readonly double SqrMagnitude => X * X + Y * Y;
 
         public override readonly bool Equals(object? obj)
@@ -34,6 +35,11 @@ namespace VectorMath
         public static Vector2 Right => new Vector2(-1, 0);
         public static Vector2 Up => new Vector2(0, 1);
         public static Vector2 Zero => new Vector2(0, 0);
+
+        public static double Angle(Vector2 v1, Vector2 v2)
+        {
+            return Math.Atan2(v2.Y * v1.X - v2.X * v1.Y, v2.X * v1.X + v2.Y * v1.Y) * 180.0 / Math.PI;
+        }
 
         public static double Distance(Vector2 v1, Vector2 v2)
         {

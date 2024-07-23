@@ -1,6 +1,7 @@
 ﻿using GeoJsonHelper.GeoJsonGeometries;
 using GeoJsonHelper.GeoJsonObjects;
 using GeoPositioning;
+using System.Collections.Generic;
 using VectorMath;
 
 namespace GeoJsonHelperConsole
@@ -9,29 +10,33 @@ namespace GeoJsonHelperConsole
     {
         public static (Vector2 min, Vector2 max, Vector2 size) GetBounds(this GeoJsonFeature feature, GeoPosition origin)
         {
+            return feature.GetPositionsFromFeature(origin).GetBounds();
+        }
+
+        public static (Vector2 min, Vector2 max, Vector2 size) GetBounds(this Vector2[] vertices)
+        {
             Vector2 max = new Vector2(double.MinValue, double.MinValue);
             Vector2 min = new Vector2(double.MaxValue, double.MaxValue);
-            var positions = feature.GetPositionsFromFeature(origin);
-            foreach (var position in positions)
+            foreach (var vertice in vertices)
             {
-                if (position.X < min.X)
+                if (vertice.X < min.X)
                 {
-                    min.X = position.X;
+                    min.X = vertice.X;
                 }
 
-                if (position.X > max.X)
+                if (vertice.X > max.X)
                 {
-                    max.X = position.X;
+                    max.X = vertice.X;
                 }
 
-                if (position.Y < min.Y)
+                if (vertice.Y < min.Y)
                 {
-                    min.Y = position.Y;
+                    min.Y = vertice.Y;
                 }
 
-                if (position.Y > max.Y)
+                if (vertice.Y > max.Y)
                 {
-                    max.Y = position.Y;
+                    max.Y = vertice.Y;
                 }
             }
 
@@ -54,22 +59,23 @@ namespace GeoJsonHelperConsole
                 return null;
             }
 
-            var polyIndex = 0;
-
-            var positions = new Vector2[polygon.Coordinates[polyIndex].LineString.Coordinates.Length];
-            if (positions.Length <= 2)
+            var positions = new List<Vector2>();
+            for (int polyIndex = 0; polyIndex < polygon.Coordinates.Length; polyIndex++)
             {
-                return null;
+                if (polygon.Coordinates[polyIndex].LineString.Coordinates.Length <= 2)
+                {
+                    return null;
+                }
+
+                for (int i = 0; i < polygon.Coordinates[polyIndex].LineString.Coordinates.Length; i++)
+                {
+                    var pos = polygon.Coordinates[polyIndex].LineString.Coordinates[i];
+                    GeoPosition geoPosition = new GeoPosition((double)pos.Latitude, (double)pos.Longitude);
+                    positions.Add(GeoPosition.GetPositionInMeters(geoPosition, origin));
+                }
             }
 
-            for (int i = 0; i < polygon.Coordinates[polyIndex].LineString.Coordinates.Length; i++)
-            {
-                var pos = polygon.Coordinates[polyIndex].LineString.Coordinates[i];
-                GeoPosition geoPosition = new GeoPosition((double)pos.Latitude, (double)pos.Longitude);
-                positions[i] = GeoPosition.GetPositionInMeters(geoPosition, origin);
-            }
-
-            return positions;
+            return positions.ToArray();
         }
     }
 }
