@@ -1,37 +1,29 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
 
 namespace GeoJsonHelperConsole
 {
     public sealed class PoiData
     {
-        [JsonProperty("Building_id")]
-        public int BuildingId { get; set; }
         public int Id { get; set; }
+        public ICollection<string> Categories { get; set; }
+        public string NameInvariant { get; set; }
+        public List<int> ControlledByPois { get; set; }
+        public string Description { get; set; }
+
+        // TODO: Images should be kept using custom class (ImageHandler)
+        public string LogoImage { get; set; }
+        public string MenuImage { get; set; }
         public string Name { get; set; }
-        public Pos Position { get; set; }
-        public string Type { get; set; }
+        public string NavigationId { get; set; }
+        public string NavigationType { get; set; }
+        public string OpeningHours { get; set; }
+        public int SlotId { get; set; }
+        public string PoiType { get; set; }
+        public string DisplayAttribute { get; set; }
 
-        public sealed class Pos
-        {
-            [JsonProperty("Floor_id")]
-            public int FloorId { get; set; }
-
-            [JsonProperty("Lat")]
-            public double Latitude { get; set; }
-
-            [JsonProperty("Lng")]
-            public double Longitude { get; set; }
-
-            public GeoRef Georeferences { get; set; }
-        }
-
-        public sealed class GeoRef
-        {
-            [JsonProperty("Lat")]
-            public double Latitude { get; set; }
-
-            [JsonProperty("Lng")]
-            public double Longitude { get; set; }
-        }
+        public bool IsFavourite { get; set; }
+        public bool IsPaymentEnabled { get; set; }
+        public string Note { get; set; }
+        public int? PoiGroupId { get; set; }
     }
 }

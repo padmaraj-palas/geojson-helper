@@ -12,7 +12,7 @@ namespace CSVHelper
         private const char Comma = ',';
         private const char DoubleQuote = '"';
 
-        public static CsvRecord[] Parse(string filePath)
+        public static CsvRecord[] Deserialize(string filePath)
         {
             IList<CsvRecord> records = new List<CsvRecord>();
 
@@ -48,13 +48,46 @@ namespace CSVHelper
             return records.ToArray();
         }
 
-        public static Task ParseAsync(string filePath, Action<CsvRecord[]> onComplete)
+        public static string Serialize(CsvRecord[] records)
         {
-            return Task.Run(() =>
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < records[0].Keys.Length; i++)
             {
-                var records = Parse(filePath);
-                onComplete?.Invoke(records);
+                sb.Append(records[0].Keys[i]);
+                sb.Append(i < records[0].Keys.Length - 1 ? "," : "\n");
+            }
+
+            foreach (CsvRecord record in records)
+            {
+                for (int i = 0; i < record.Keys.Length; i++)
+                {
+                    if (!string.IsNullOrEmpty(record.Values[i]) && record.Values[i].Contains(","))
+                    {
+                        sb.Append($"\"{record.Values[i]}\"");
+                    }
+                    else
+                    {
+                        sb.Append(record.Values[i]);
+                    }
+
+                    sb.Append(i < record.Keys.Length - 1 ? "," : "\n");
+                }
+            }
+
+            return sb.ToString();
+        }
+
+        public static Task<CsvRecord[]> ParseAsync(string filePath)
+        {
+            TaskCompletionSource<CsvRecord[]> taskCompletionSource = new TaskCompletionSource<CsvRecord[]>();
+            Task.Run(() =>
+            {
+                var records = Deserialize(filePath);
+                taskCompletionSource.SetResult(records);
             });
+
+            return taskCompletionSource.Task;
         }
 
         private static string ReadLine(StreamReader reader)

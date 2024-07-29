@@ -8,13 +8,13 @@ namespace GeoJsonHelper.CustomConverters
 {
     internal sealed class GeoJsonConverter : JsonConverter<GeoJson>
     {
+        private readonly IGeoJsonCreatedCallback _geoJsonCreatedCallback;
         private readonly IGeoJsonObjectFactory _geoJsonObjectFactory;
-        private readonly IGeoJsonService _geoJsonService;
 
-        public GeoJsonConverter(IGeoJsonObjectFactory geoJsonObjectFactory, IGeoJsonService geoJsonService)
+        public GeoJsonConverter(IGeoJsonObjectFactory geoJsonObjectFactory, IGeoJsonCreatedCallback geoJsonCreatedCallback)
         {
             _geoJsonObjectFactory = geoJsonObjectFactory;
-            _geoJsonService = geoJsonService;
+            _geoJsonCreatedCallback = geoJsonCreatedCallback;
         }
 
         public override bool CanWrite => false;
@@ -52,10 +52,10 @@ namespace GeoJsonHelper.CustomConverters
             GeoJson geoJson = _geoJsonObjectFactory.CreateGeoJson(jObject, type);
 
             if (geoJson != null)
+            {
                 serializer.Populate(jObject.CreateReader(), geoJson);
-
-            if (geoJson is GeoJsonFeature feature)
-                _geoJsonService.AddFeature(feature);
+                _geoJsonCreatedCallback?.OnGeoJsonCreated(geoJson);
+            }
 
             return geoJson;
         }

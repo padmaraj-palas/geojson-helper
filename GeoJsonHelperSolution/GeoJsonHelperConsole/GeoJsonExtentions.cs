@@ -10,7 +10,7 @@ namespace GeoJsonHelperConsole
     {
         public static (Vector2 min, Vector2 max, Vector2 size) GetBounds(this GeoJsonFeature feature, GeoPosition origin)
         {
-            return feature.GetPositionsFromFeature(origin).GetBounds();
+            return feature.GetVerticesFromFeature(origin)[0].GetBounds();
         }
 
         public static (Vector2 min, Vector2 max, Vector2 size) GetBounds(this Vector2[] vertices)
@@ -46,7 +46,7 @@ namespace GeoJsonHelperConsole
             return (min, max, new Vector2(width, height));
         }
 
-        public static Vector2[] GetPositionsFromFeature(this GeoJsonFeature feature, GeoPosition origin)
+        public static IList<Vector2[]> GetVerticesFromFeature(this GeoJsonFeature feature, GeoPosition origin)
         {
             if (feature == null || feature.Geometry == null || feature.Geometry is not GeoJsonPolygon)
             {
@@ -59,23 +59,26 @@ namespace GeoJsonHelperConsole
                 return null;
             }
 
-            var positions = new List<Vector2>();
+            var vertices = new List<Vector2[]>();
             for (int polyIndex = 0; polyIndex < polygon.Coordinates.Length; polyIndex++)
             {
                 if (polygon.Coordinates[polyIndex].LineString.Coordinates.Length <= 2)
                 {
-                    return null;
+                    continue;
                 }
 
+                var ringVertices = new Vector2[polygon.Coordinates[polyIndex].LineString.Coordinates.Length];
                 for (int i = 0; i < polygon.Coordinates[polyIndex].LineString.Coordinates.Length; i++)
                 {
-                    var pos = polygon.Coordinates[polyIndex].LineString.Coordinates[i];
-                    GeoPosition geoPosition = new GeoPosition((double)pos.Latitude, (double)pos.Longitude);
-                    positions.Add(GeoPosition.GetPositionInMeters(geoPosition, origin));
+                    var vertice = polygon.Coordinates[polyIndex].LineString.Coordinates[i];
+                    GeoPosition geoPosition = new GeoPosition((double)vertice.Latitude, (double)vertice.Longitude);
+                    ringVertices[i] = GeoPosition.GetPositionInMeters(geoPosition, origin);
                 }
+
+                vertices.Add(ringVertices);
             }
 
-            return positions.ToArray();
+            return vertices.ToArray();
         }
     }
 }

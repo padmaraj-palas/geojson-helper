@@ -47,6 +47,11 @@ namespace GeoPositioning
             return new GeoPosition { Altitude = Altitude, Latitude = Latitude * Constants.DegToRad, Longitude = Longitude * Constants.DegToRad };
         }
 
+        public override string ToString()
+        {
+            return $"{{{Latitude}, {Longitude}}}";
+        }
+
         public static bool operator ==(GeoPosition lhs, GeoPosition rhs)
         {
             return lhs.Equals(rhs);
@@ -82,8 +87,6 @@ namespace GeoPositioning
             return new GeoPosition { Altitude = lhs.Altitude, Latitude = lhs.Latitude / value, Longitude = lhs.Longitude / value };
         }
 
-
-
         public static double BearingInDegrees(GeoPosition p1, GeoPosition p2)
         {
             var p1Rad = p1.ToRad();
@@ -112,6 +115,22 @@ namespace GeoPositioning
             return RadiusOfEarthInMeters * c;
         }
 
+        public static GeoPosition GetGeoPositionFromMetricPosition(GeoPosition origin, Vector2 position)
+        {
+            var distance = position.Magnitude;
+            var bearingInDegrees = -Vector2.Angle(Vector2.Up, position.Normalized);
+            return GetTargetPosition(origin, bearingInDegrees, distance);
+        }
+
+        public static Vector2 GetPositionInMeters(GeoPosition geoPosition, GeoPosition? origin)
+        {
+            var referencePoint = origin == null ? Origin : origin.Value;
+            var distance = DistanceInMeters(referencePoint, geoPosition);
+            var bearing = BearingInDegrees(referencePoint, geoPosition);
+            var direction = RotatedNorth(Vector2.Up, -bearing);
+            return direction * distance;
+        }
+
         public static GeoPosition GetTargetPosition(GeoPosition start, double bearingInDegrees, double distance)
         {
             double ad = distance / RadiusOfEarthInMeters;
@@ -125,15 +144,6 @@ namespace GeoPositioning
 
             lon = ((lon + 540) % 360) - 180;
             return new GeoPosition(lat * Constants.RadToDeg, lon * Constants.RadToDeg);
-        }
-
-        public static Vector2 GetPositionInMeters(GeoPosition geoPosition, GeoPosition? origin)
-        {
-            var referencePoint = origin == null ? Origin : origin.Value;
-            var distance = DistanceInMeters(referencePoint, geoPosition);
-            var bearing = BearingInDegrees(referencePoint, geoPosition);
-            var direction = RotatedNorth(Vector2.Up, -bearing);
-            return direction * distance;
         }
 
         private static Vector2 RotatedNorth(Vector2 north, double bearingInDegrees)

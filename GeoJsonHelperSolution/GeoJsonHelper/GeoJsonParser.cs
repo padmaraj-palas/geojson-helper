@@ -22,11 +22,11 @@ namespace GeoJsonHelper
             };
         }
 
-        public static void Init(IGeoJsonService geoJsonService)
+        public static void Init(IGeoJsonCreatedCallback geoJsonCreatedCallback)
         {
             IGeoJsonObjectFactory geoJsonFactory = new GeoJsonObjectFactory();
             geoJsonFactory = new IMDFGeoJsonObjectFactory(geoJsonFactory);
-            _serializer.Converters.Add(new GeoJsonConverter(geoJsonFactory, geoJsonService));
+            _serializer.Converters.Add(new GeoJsonConverter(geoJsonFactory, geoJsonCreatedCallback));
             _serializer.Converters.Add(new GeoJsonLineRingConverter());
             _serializer.Converters.Add(new LabelConverter());
             _serializer.Converters.Add(new PositionConverter());

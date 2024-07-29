@@ -5,7 +5,7 @@ namespace GeoJsonHelperConsole
 {
     public static class ColorUtility
     {
-        private static Random random = new Random(1);
+        private static Random random = new Random(8);
 
         public static Color GetRandomColor()
         {
