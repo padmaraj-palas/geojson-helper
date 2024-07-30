@@ -5,6 +5,7 @@ using GeoJsonHelper.IMDF.GeoJsonFeatures;
 using GeoJsonHelper.IMDF.Properties;
 using GeoPositioning;
 using Svg;
+using Svg.Transforms;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -77,6 +78,10 @@ namespace GeoJsonHelperConsole
                 return;
             }
 
+            var bounds = mapping.vertices.GetBounds();
+            var center = new Vector2(bounds.min.X + bounds.size.X / 2, bounds.min.Y + bounds.size.Y / 2);
+            var maxSize = (float)Math.Max(bounds.size.X, bounds.size.Y);
+
             var contentRoot = svgRoot.GetElementById(mapping.groupName);
             if (contentRoot == null)
             {
@@ -94,8 +99,14 @@ namespace GeoJsonHelperConsole
             svgPolygon.Stroke = SvgPaintServer.None;
             svgPolygon.Fill = new SvgColourServer(color);
             SvgPointCollection svgUnits = new SvgPointCollection();
-            svgUnits.AddRange(mapping.vertices.SelectMany(p => new SvgUnit[] { new SvgUnit((float)p.X), new SvgUnit(-(float)p.Y) }));
+            svgUnits.AddRange(mapping.vertices.Select(p => p - center).SelectMany(p => new SvgUnit[] { new SvgUnit((float)p.X), new SvgUnit(-(float)p.Y) }));
             svgPolygon.Points = svgUnits;
+            SvgTransformCollection svgTransforms = new SvgTransformCollection
+            {
+                new SvgTranslate((float)center.X, -(float)center.Y),
+                new SvgScale(1f - (0.1f / maxSize), 1f - (0.1f / maxSize))
+            };
+            svgPolygon.Transforms = svgTransforms;
             poiRoot.Children.Add(svgPolygon);
 
             SvgUnitCollection x = new SvgUnitCollection
