@@ -6,6 +6,8 @@ namespace GeoJsonHelperConsole
     {
         [JsonProperty("Building_id")]
         public int BuildingId { get; set; }
+        [JsonProperty("custom_fields")]
+        public KeyValue[] CustomFields { get; set; }
         public int Id { get; set; }
         public string Name { get; set; }
         public Pos Position { get; set; }
@@ -32,6 +34,12 @@ namespace GeoJsonHelperConsole
 
             [JsonProperty("Lng")]
             public double Longitude { get; set; }
+        }
+
+        public sealed class KeyValue
+        {
+            public string Key { get; set; }
+            public string Value { get; set; }
         }
     }
 }

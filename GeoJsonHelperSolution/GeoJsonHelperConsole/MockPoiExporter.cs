@@ -1,5 +1,4 @@
-﻿using GeoJsonHelper;
-using GeoPositioning;
+﻿using GeoPositioning;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using System;
@@ -7,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Threading.Tasks;
+using CSVHelper;
 
 namespace GeoJsonHelperConsole
 {
@@ -28,45 +28,47 @@ namespace GeoJsonHelperConsole
 
         public static async Task Export(string geoJsonPath, string poisPath, string outputPath)
         {
-            IIMDFGeoJsonService geoJsonService = new IMDFGeoJsonService();
-            var geoJson = await geoJsonService.LoadAsync(geoJsonPath);
-
-            var building = geoJsonService.Buildings.Values.FirstOrDefault();
-
-            var displayPoint = building.Properties.Display_point.Coordinates;
-            var origin = new GeoPosition((double)displayPoint.Latitude, (double)displayPoint.Longitude);
+            var records = await CSVParser.ParseAsync(poisPath);
+            var json = records.ToJson();
+            var situmPois = PoiJsonSerializer.Deserialize<SitumPoiData[]>(json).Where(p => p.Position.FloorId == 109);
 
             string type = "Venue";
             List<PoiData> pois = new List<PoiData> ();
-            List<PoiLocationData> poiLocations = new List<PoiLocationData> ();
-            for (int i = 0; i < 300; i++)
+            List<PoiMetaData> poiMetaData = new List<PoiMetaData> ();
+            int index = 0;
+            foreach(var situmPoi in situmPois)
             {
+                index++;
                 var poi = new PoiData
                 {
-                    Id = i + 1,
+                    Id = index,
                     Categories = new List<string>(),
-                    Description = $"Test Poi {i + 1}",
-                    Name = $"Poi {i + 1}",
-                    NameInvariant = $"Poi {i + 1}",
+                    Description = situmPoi.Name,
+                    Name = situmPoi.Name,
+                    NameInvariant = situmPoi.Name,
                     NavigationId = Guid.NewGuid().ToString(),
                     NavigationType = "Poi",
                     PoiType = type,
-                    SlotId = i + 1,
+                    SlotId = index,
                     ControlledByPois = new List<int>(),
                     LogoImage = "https://ipendevstorage.blob.core.windows.net/ipen-abudhabi/A013748470C459A8AF1F58316EAC17F7.png",
                     MenuImage = "https://ipendevstorage.blob.core.windows.net/ipen-abudhabi/A013748470C459A8AF1F58316EAC17F7.png",
-                    DisplayAttribute = _random.Next(1, 10) % 2 == 0 ? "Icon" : "Label"
+                    DisplayAttribute = "label"//_random.Next(1, 10) % 2 == 0 ? "Icon" : "Label"
                 };
-                var poiLocation = new PoiLocationData
+                var poiMeta = new PoiMetaData
                 {
-                    Position = GeoPosition.GetTargetPosition(origin, _random.NextDouble() * 360, _random.Next(100, 500)),
-                    SlotId = i + 1
+                    Position = new GeoPosition(situmPoi.Position.Georeferences.Latitude, situmPoi.Position.Georeferences.Longitude),
+                    Priority = GetPriorityFromSitumPoi(situmPoi),
+                    SlotId = index
                 };
                 pois.Add (poi);
-                poiLocations.Add(poiLocation);
+                poiMetaData.Add(poiMeta);
             }
             var poiJson = GetJson(pois);
-            var poiLocationJson = GetJson(poiLocations);
+            var poiMetaJson = GetJson(poiMetaData);
+
+            File.WriteAllText(Path.Combine(outputPath, "Pois.json"), poiJson);
+            File.WriteAllText(Path.Combine(outputPath, "PoiMetaData.json"), poiMetaJson);
         }
 
         private static string GetJson<T>(T value)
@@ -76,6 +78,25 @@ namespace GeoJsonHelperConsole
                 _serializer.Serialize(writer, value);
                 return writer.ToString();
             }
+        }
+
+        private static int GetPriorityFromSitumPoi(SitumPoiData situmPoiData)
+        {
+            try
+            {
+                if (situmPoiData.CustomFields != null)
+                {
+                    var customField = situmPoiData.CustomFields.FirstOrDefault(cf => cf.Key == "priority");
+                    if (customField != null)
+                    {
+                        return int.Parse(customField.Value);
+                    }
+                }
+            }
+            catch
+            { }
+
+            return 0;
         }
     }
 }
