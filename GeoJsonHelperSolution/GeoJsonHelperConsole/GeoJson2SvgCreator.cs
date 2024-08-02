@@ -94,7 +94,7 @@ namespace GeoJsonHelperConsole
             poiRoot.SetAndForceUniqueID($"{mapping.poi.Id}");
             contentRoot.Children.Add(poiRoot);
 
-            Color color = ColorUtility.GetRandomColor();
+            Color color = mapping.poi.FillColor;
             var svgPolygon = new SvgPolygon();
             svgPolygon.Stroke = SvgPaintServer.None;
             svgPolygon.Fill = new SvgColourServer(color);
@@ -157,7 +157,7 @@ namespace GeoJsonHelperConsole
                 .Concat(units.Where(u => !cats.Contains(u.Properties.Category)));
 
             var mapping = MapGeoJsonAndPoiMock(units, pois, origin);
-            GeoJson2SvgCreator.Create(geoJsonService.Venues.Values.FirstOrDefault().GetVerticesFromFeature(origin)[0], mapping);
+            Create(geoJsonService.Venues.Values.FirstOrDefault().GetVerticesFromFeature(origin)[0], mapping);
 
             var bounds = geoJsonService.Venues.Values.FirstOrDefault().GetVerticesFromFeature(origin)[0].GetBounds();
             var lowerLeftCorner = bounds.min;
@@ -197,7 +197,8 @@ namespace GeoJsonHelperConsole
                             Latitude = (double)feature.Properties.Display_point.Coordinates.Latitude,
                             Longitude = (double)feature.Properties.Display_point.Coordinates.Longitude
                         }
-                    }
+                    },
+                    FillColor = ColorTranslator.FromHtml(feature.Properties.FillColor)
                 };
 
                 var vertices = feature.GetVerticesFromFeature(origin)[0];

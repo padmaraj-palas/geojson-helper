@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Drawing;
 
 namespace GeoJsonHelperConsole
 {
@@ -12,6 +13,9 @@ namespace GeoJsonHelperConsole
         public string Name { get; set; }
         public Pos Position { get; set; }
         public string Type { get; set; }
+
+        [JsonIgnore]
+        public Color FillColor { get; set; }
 
         public sealed class Pos
         {
