@@ -21,5 +21,29 @@ namespace GeoJsonHelperConsole
         public float Radius { get; set; }
         public string Type { get; set; }
         public long X_Data { get; set; }
+
+        public static implicit operator SitumPoiData(FlatenedSitumPoiData poiData)
+        {
+            return new SitumPoiData
+            {
+                BuildingId = poiData.BuildingId,
+                CategoryName = string.Empty,
+                CustomFields = new SitumPoiData.KeyValue[] { new SitumPoiData.KeyValue { Key = "priority", Value = $"{poiData.Priority}" } },
+                Id = poiData.Id,
+                Name = poiData.Name,
+                Position = new SitumPoiData.Pos
+                {
+                    Latitude = poiData.Latitude,
+                    Longitude = poiData.Longitude,
+                    FloorId = poiData.FloorId,
+                    Georeferences = new SitumPoiData.GeoRef
+                    {
+                        Latitude = poiData.Latitude,
+                        Longitude = poiData.Longitude
+                    }
+                },
+                Type = poiData.Type
+            };
+        }
     }
 }

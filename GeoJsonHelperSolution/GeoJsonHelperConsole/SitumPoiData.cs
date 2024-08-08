@@ -7,6 +7,8 @@ namespace GeoJsonHelperConsole
     {
         [JsonProperty("Building_id")]
         public int BuildingId { get; set; }
+        [JsonProperty("category_name")]
+        public string CategoryName { get; set; }
         [JsonProperty("custom_fields")]
         public KeyValue[] CustomFields { get; set; }
         public int Id { get; set; }

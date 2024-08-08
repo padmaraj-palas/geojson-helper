@@ -18,12 +18,22 @@ namespace GeoJsonHelperConsole
         public string NavigationType { get; set; }
         public string OpeningHours { get; set; }
         public int SlotId { get; set; }
-        public string PoiType { get; set; }
+        public PoiType PoiType { get; set; }
         public string DisplayAttribute { get; set; }
 
         public bool IsFavourite { get; set; }
         public bool IsPaymentEnabled { get; set; }
         public string Note { get; set; }
         public int? PoiGroupId { get; set; }
+    }
+
+    public enum PoiType
+    {
+        None,
+        Door,
+        Venue,
+        Gate,
+        Group,
+        Location
     }
 }
