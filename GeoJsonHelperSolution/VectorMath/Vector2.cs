@@ -29,6 +29,11 @@ namespace VectorMath
             return HashCode.Combine(X, Y);
         }
 
+        public override readonly string ToString()
+        {
+            return $"(X: {X}, Y: {Y})";
+        }
+
         public static Vector2 Down => new Vector2(0, -1);
         public static Vector2 Left => new Vector2(-1, 0);
         public static Vector2 One => new Vector2(1, 1);

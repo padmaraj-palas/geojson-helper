@@ -3,7 +3,6 @@ using GeoJsonHelper;
 using GeoJsonHelper.GeoJsonObjects;
 using GeoPositioning;
 using Svg;
-using Svg.Transforms;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -139,38 +138,31 @@ namespace GeoJsonHelperConsole
             contentRoot.Children.Add(poiRoot);
 
             Color color = mapping.Value.FillColor;
-            var svgPolygon = new SvgPolygon();
-            svgPolygon.Stroke = SvgPaintServer.None;
-            svgPolygon.Fill = new SvgColourServer(color);
-            SvgPointCollection svgUnits = new SvgPointCollection();
-            svgUnits.AddRange(vertices.Select(p => p - center).SelectMany(p => new SvgUnit[] { new SvgUnit((float)p.X), new SvgUnit(-(float)p.Y) }));
-            svgPolygon.Points = svgUnits;
-            SvgTransformCollection svgTransforms = new SvgTransformCollection
-            {
-                new SvgTranslate((float)center.X, -(float)center.Y),
-                new SvgScale(1f - (0.1f / maxSize), 1f - (0.1f / maxSize))
-            };
-            svgPolygon.Transforms = svgTransforms;
-            poiRoot.Children.Add(svgPolygon);
+            var scale = new Vector2(1f - (0.1f / maxSize), 1f - (0.1f / maxSize));
+            var svgPolygon = vertices.ToSvgPolygon(fillColor: color, position: center, root: poiRoot, scale: scale);
+            //poiRoot.Children.Add(svgPolygon);
 
-            SvgUnitCollection x = new SvgUnitCollection
-            {
-                svgPolygon.Bounds.X + svgPolygon.Bounds.Width / 2f
-            };
+            //SvgUnitCollection x = new SvgUnitCollection
+            //{
+            //    svgPolygon.Bounds.X + svgPolygon.Bounds.Width / 2f
+            //};
 
-            SvgUnitCollection y = new SvgUnitCollection
-            {
-                svgPolygon.Bounds.Y + svgPolygon.Bounds.Height / 2f
-            };
+            //SvgUnitCollection y = new SvgUnitCollection
+            //{
+            //    svgPolygon.Bounds.Y + svgPolygon.Bounds.Height / 2f
+            //};
 
-            var svgText = new SvgText($"{mapping.Value.Name}");
-            svgText.Stroke = SvgPaintServer.None;
-            svgText.Fill = new SvgColourServer(Color.FromArgb((byte)(color.R * 0.75f), (byte)(color.G * 0.75f), (byte)(color.B * 0.75f)));
-            svgText.TextAnchor = SvgTextAnchor.Middle;
-            svgText.X = x;
-            svgText.Y = y;
-            svgText.FontSize = new SvgUnit((float)Math.Min(svgPolygon.Bounds.Width, svgPolygon.Bounds.Height) / 10f);
-            poiRoot.Children.Add(svgText);
+            var textPosition = new Vector2(svgPolygon.Bounds.X + svgPolygon.Bounds.Width / 2f, svgPolygon.Bounds.Y + svgPolygon.Bounds.Height / 2f);
+            var textColor = Color.FromArgb((byte)(color.R * 0.75f), (byte)(color.G * 0.75f), (byte)(color.B * 0.75f));
+            var fontSize = (float)Math.Min(svgPolygon.Bounds.Width, svgPolygon.Bounds.Height) / 10f;
+            var svgText = SVGExtentions.CreateSvgText(mapping.Value.Name, fillColor: textColor, fontSize: fontSize, position: textPosition, root: poiRoot);//new SvgText($"{mapping.Value.Name}");
+            //svgText.Stroke = SvgPaintServer.None;
+            //svgText.Fill = new SvgColourServer(Color.FromArgb((byte)(color.R * 0.75f), (byte)(color.G * 0.75f), (byte)(color.B * 0.75f)));
+            //svgText.TextAnchor = SvgTextAnchor.Middle;
+            //svgText.X = x;
+            //svgText.Y = y;
+            //svgText.FontSize = new SvgUnit((float)Math.Min(svgPolygon.Bounds.Width, svgPolygon.Bounds.Height) / 10f);
+            //poiRoot.Children.Add(svgText);
         }
     }
 }
