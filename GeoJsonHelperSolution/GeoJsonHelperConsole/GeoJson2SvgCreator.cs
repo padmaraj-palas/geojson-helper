@@ -44,9 +44,9 @@ namespace GeoJsonHelperConsole
                 .Concat(units.Where(u => u.Properties.Category == "parking"))
                 .Concat(units.Where(u => !cats.Contains(u.Properties.Category)));
 
-            //var mapping = GeoJsonAndSitumPoiMapping.GenerateMockPoisForGeoJson(units, origin);
-            var mapping = await GeoJsonAndSitumPoiMapping.MapGeoJsonAndPoiAsync(units, pois, origin);
-            Create(geoJsonService.Venues.Values.FirstOrDefault(), mapping.matches.Where(kvp => kvp.Key is GeoJsonFeature).Select(kvp => new KeyValuePair<GeoJsonFeature, SitumPoiData>(kvp.Key, kvp.Value)), origin);
+            var mapping = GeoJsonAndSitumPoiMapping.GenerateMockPoisForGeoJson(units, origin);
+            //var mapping = await GeoJsonAndSitumPoiMapping.MapGeoJsonAndPoiAsync(units, pois, origin);
+            Create(geoJsonService.Venues.Values.FirstOrDefault(), mapping.Select(kvp => new KeyValuePair<GeoJsonFeature, SitumPoiData>(kvp.Key, kvp.Value)), origin);
 
             var (min, max, size) = geoJsonService.Venues.Values.FirstOrDefault().GetVerticesFromFeature(origin)[0].GetBounds();
             var lowerLeftCorner = min;
@@ -61,9 +61,9 @@ namespace GeoJsonHelperConsole
             var ur = GeoPosition.GetGeoPositionFromMetricPosition(origin, upperRightCorner);
             var lr = GeoPosition.GetGeoPositionFromMetricPosition(origin, lowerRightCorner);
 
-            var totalMatched = mapping.matches.Values.ToList();
-            var totalMultiMatches = mapping.multiMatch.SelectMany(kvp => kvp.Value).ToList();
-            var noMatches = mapping.notMatched;
+            //var totalMatched = mapping.matches.Values.ToList();
+            //var totalMultiMatches = mapping.multiMatch.SelectMany(kvp => kvp.Value).ToList();
+            //var noMatches = mapping.notMatched;
         }
 
         public static void Create(GeoJsonFeature rootObject, IEnumerable<KeyValuePair<GeoJsonFeature, SitumPoiData>> mapping, GeoPosition origin)

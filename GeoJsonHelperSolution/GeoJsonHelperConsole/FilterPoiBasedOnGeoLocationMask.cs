@@ -44,7 +44,8 @@ namespace GeoJsonHelperConsole
             var origin = new GeoPosition((double)displayPoint.Latitude, (double)displayPoint.Longitude);
 
             SvgDocument svgDocument = SvgDocument.Open(svgPath);
-            var groups = svgDocument.Children.Where(c => c is SvgGroup).Select(c => c as SvgGroup).ToList();
+            var ppi = SvgDocument.PointsPerInch;
+            var groups = svgDocument.GetAllGroups();//.Where(c => c is SvgGroup).Select(c => c as SvgGroup).ToList();
             var maskGroup = groups.FirstOrDefault(g => g.ID == "Mask");
 
             if (maskGroup == null)
@@ -58,7 +59,13 @@ namespace GeoJsonHelperConsole
             Vector2 start = new Vector2(0, 0);
             for(int i = 0; i < mask.PathData.Count; i++)
             {
-                start = new Vector2(mask.PathData[i].End.X, mask.PathData[i].End.Y) + start;
+                var pathData = mask.PathData[i];
+                if (float.IsNaN(pathData.End.X) || float.IsNaN(pathData.End.Y))
+                {
+                    throw new Exception("Invalid path in SVG");
+                }
+
+                start = new Vector2(pathData.End.X, pathData.End.Y) + (pathData.IsRelative ? start : Vector2.Zero);
                 vertices.Add(new Vector2(start.X, -start.Y));
             }
 

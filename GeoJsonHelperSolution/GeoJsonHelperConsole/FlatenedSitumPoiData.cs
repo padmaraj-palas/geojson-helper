@@ -20,7 +20,7 @@ namespace GeoJsonHelperConsole
         public int Priority { get; set; }
         public float Radius { get; set; }
         public string Type { get; set; }
-        public long X_Data { get; set; }
+        public string X_Data { get; set; }
 
         public static implicit operator SitumPoiData(FlatenedSitumPoiData poiData)
         {

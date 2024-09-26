@@ -30,8 +30,8 @@ namespace GeoJsonHelperConsole
                 PoiType = situmPoiData.CategoryName == "Boarding Gates" ? GeoJsonHelperConsole.PoiType.Gate : GeoJsonHelperConsole.PoiType.Venue,
                 SlotId = situmPoiData.Id,
                 ControlledByPois = new List<int>(),
-                LogoImage = "https://ipendevstorage.blob.core.windows.net/ipen-abudhabi/A013748470C459A8AF1F58316EAC17F7.png",
-                MenuImage = "https://ipendevstorage.blob.core.windows.net/ipen-abudhabi/A013748470C459A8AF1F58316EAC17F7.png",
+                LogoImage = "https://ipendevstorage.blob.core.windows.net/ipen-abudhabi/Resources/poi_icon_temp.png",
+                MenuImage = "https://ipendevstorage.blob.core.windows.net/ipen-abudhabi/Resources/poi_icon_temp.png",
                 DisplayAttribute = "label"//_random.Next(1, 10) % 2 == 0 ? "Icon" : "Label"
             };
             var poiMeta = new PoiMetaData
@@ -58,8 +58,8 @@ namespace GeoJsonHelperConsole
                 PoiType = GeoJsonHelperConsole.PoiType.Venue,
                 SlotId = situmPoiData.Id,
                 ControlledByPois = new List<int>(),
-                LogoImage = "https://ipendevstorage.blob.core.windows.net/ipen-abudhabi/A013748470C459A8AF1F58316EAC17F7.png",
-                MenuImage = "https://ipendevstorage.blob.core.windows.net/ipen-abudhabi/A013748470C459A8AF1F58316EAC17F7.png",
+                LogoImage = "https://ipendevstorage.blob.core.windows.net/ipen-abudhabi/Resources/poi_icon_temp.png",
+                MenuImage = "https://ipendevstorage.blob.core.windows.net/ipen-abudhabi/Resources/poi_icon_temp.png",
                 DisplayAttribute = "label"//_random.Next(1, 10) % 2 == 0 ? "Icon" : "Label"
             };
             var poiMeta = new PoiMetaData

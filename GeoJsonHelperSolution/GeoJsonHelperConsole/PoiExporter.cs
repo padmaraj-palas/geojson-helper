@@ -19,12 +19,55 @@ namespace GeoJsonHelperConsole
             File.WriteAllText(Path.Combine(outputPath, "PoiMetaData.json"), poiMetaJson);
         }
 
+        public static async Task ExportFromJson(string poisPath, string outputPath)
+        {
+            var (pois, poiMetaData) = await GetPoisFromJson(poisPath);
+
+            var poiJson = JsonContentSerializer.Serialize(pois);
+            var poiMetaJson = JsonContentSerializer.Serialize(poiMetaData);
+
+            File.WriteAllText(Path.Combine(outputPath, "Pois.json"), poiJson);
+            File.WriteAllText(Path.Combine(outputPath, "PoiMetaData.json"), poiMetaJson);
+        }
+
         public static async Task<(List<PoiData> pois, List<PoiMetaData> poiMetaData)> GetPois(string poisPath)
         {
             IDictionary<string, PoiData> gates = new Dictionary<string, PoiData>();
             var records = await CSVParser.ParseAsync(poisPath);
             var json = records.ToJson();
             var situmPois = PoiJsonSerializer.Deserialize<SitumPoiData[]>(json).Where(p => p.Position.FloorId == 109);
+
+            List<PoiData> pois = new List<PoiData>();
+            List<PoiMetaData> poiMetaData = new List<PoiMetaData>();
+            int index = 0;
+            foreach (var situmPoiData in situmPois)
+            {
+                index++;
+                var (poi, poiMeta) = SitumPoiMapping.Map(situmPoiData);
+                if (poi.PoiType == PoiType.Gate)
+                {
+                    gates.Add(poi.Name, poi);
+                }
+
+                pois.Add(poi);
+                poiMetaData.Add(poiMeta);
+            }
+
+            ProcessGates(gates);
+
+            return (pois, poiMetaData);
+        }
+
+        public static async Task<(List<PoiData> pois, List<PoiMetaData> poiMetaData)> GetPoisFromJson(string poisPath)
+        {
+            IDictionary<string, PoiData> gates = new Dictionary<string, PoiData>();
+            if (!File.Exists(poisPath))
+            {
+                return (null, null);
+            }
+
+            var json = File.ReadAllText(poisPath);
+            var situmPois = PoiJsonSerializer.Deserialize<FlatenedSitumPoiData[]>(json).Where(p => p.FloorId == 109);
 
             List<PoiData> pois = new List<PoiData>();
             List<PoiMetaData> poiMetaData = new List<PoiMetaData>();

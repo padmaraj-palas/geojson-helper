@@ -1,5 +1,6 @@
 ﻿using Svg;
 using Svg.Transforms;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using VectorMath;
@@ -53,7 +54,7 @@ namespace GeoJsonHelperConsole
 
             var svgText = new SvgText(text);
             svgText.Stroke = SvgPaintServer.None;
-            svgText.Fill = new SvgColourServer(Color.FromArgb((byte)(fillColor.Value.R * 0.75f), (byte)(fillColor.Value.G * 0.75f), (byte)(fillColor.Value.B * 0.75f)));
+            svgText.Fill = new SvgColourServer(fillColor.Value);
             svgText.TextAnchor = SvgTextAnchor.Middle;
             svgText.X = x;
             svgText.Y = y;
@@ -65,6 +66,32 @@ namespace GeoJsonHelperConsole
             }
 
             return svgText;
+        }
+
+        public static IEnumerable<SvgGroup> GetAllGroups(this SvgElement element)
+        {
+            if (element == null)
+            {
+                yield break;
+            }
+
+            if (element is SvgGroup group)
+            {
+                yield return group;
+            }
+
+            if (element.Children == null)
+            {
+                yield break;
+            }
+
+            foreach (var child in element.Children)
+            {
+                foreach (var item in GetAllGroups(child))
+                {
+                    yield return item;
+                }
+            }
         }
     }
 }
